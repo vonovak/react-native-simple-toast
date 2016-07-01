@@ -18,16 +18,13 @@ class samples extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
+          This is the sample of Simple Toast.
         </Text>
         <Text style={styles.instructions}>
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
-        <TouchableHighlight onPress={()=>{Toast.show("Tap",Toast.LONG)}}>
+        <TouchableHighlight onPress={()=>{Toast.show("This is a Toast",Toast.LONG)}}>
           <Text>Tap to show Toast!</Text>
         </TouchableHighlight>     
       </View>

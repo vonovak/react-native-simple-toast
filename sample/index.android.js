@@ -8,23 +8,25 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
+  TouchableHighlight,
   Text,
   View
 } from 'react-native';
-
+import Toast from './node_modules/react-native-simple-toast/index.android';
 class samples extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          This is the sample of Simple Toast.
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.android.js
+          Press Cmd+R to reload,{'\n'}
+          Cmd+D or shake for dev menu
         </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+        <TouchableHighlight onPress={()=>{Toast.show("This is a Toast",Toast.LONG)}}>
+          <Text>Tap to show Toast!</Text>
+        </TouchableHighlight>     
       </View>
     );
   }

@@ -2,7 +2,7 @@ import {NativeModules} from 'react-native';
 
 var RCTToastModule = NativeModules.LRDRCTSimpleToast;
 
-var ToastModule = {
+var SimpleToast = {
   SHORT: RCTToastModule.SHORT,
   LONG: RCTToastModule.LONG,
   show: function (message:string, duration:number):void {

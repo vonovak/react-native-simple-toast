@@ -1,6 +1,6 @@
 import {ToastAndroid} from 'react-native';
 
-var ToastModule = {
+var SimpleToast = {
   SHORT: ToastAndroid.SHORT,
   LONG: ToastAndroid.LONG,
   show: function (message:string, duration:number):void {
