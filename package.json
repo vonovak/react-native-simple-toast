@@ -1,7 +1,7 @@
 {
   "name": "react-native-simple-toast",
-  "version": "0.0.1",
-  "description": "simple toast for react-native. In Android it's just native toast, in iOS it's https://github.com/scalessec/Toast",
+  "version": "0.0.2",
+  "description": "Simple Toast for react-native. In Android it's just native toast, in iOS it's https://github.com/scalessec/Toast",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

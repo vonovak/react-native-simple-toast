@@ -1,6 +1,6 @@
-import {NativeModules} from 'react-native';
+import {NativeModules,ToastAndroid,Platform} from 'react-native';
 
-var RCTToastModule = NativeModules.LRDRCTSimpleToast;
+var RCTToastModule = Platform.OS === 'android' ? ToastAndroid : NativeModules.LRDRCTSimpleToast;
 
 var SimpleToast = {
   SHORT: RCTToastModule.SHORT,

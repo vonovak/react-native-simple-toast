@@ -12,7 +12,7 @@ import {
   Text,
   View
 } from 'react-native';
-import Toast from './node_modules/react-native-simple-toast/index.ios';
+import Toast from 'react-native-simple-toast';
 class samples extends Component {
   render() {
     return (
