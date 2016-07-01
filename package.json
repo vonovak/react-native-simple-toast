@@ -10,8 +10,12 @@
     "react-native",
     "toast"
   ],
-  "author": "lrdcq",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xgfe/react-native-simple-toast.git"
+  },
+  "author": "xgfe",
+  "license": "MIT",
   "dependencies": {
     "react": "15.1.0",
     "react-native": "^0.28.0"
