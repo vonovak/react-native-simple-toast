@@ -6,8 +6,8 @@
     "start": "react-native start"
   },
   "dependencies": {
-    "react": "15.1.0",
-    "react-native": "^0.28.0",
-    "react-native-simple-toast": "0.0.3"
+    "react": "15.3.0",
+    "react-native": "^0.34.1",
+    "react-native-simple-toast": "0.0.4"
   }
 }

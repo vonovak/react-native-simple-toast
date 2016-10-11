@@ -26,7 +26,10 @@ class samples extends Component {
         </Text>
         <TouchableHighlight onPress={()=>{Toast.show("This is a Toast",Toast.LONG)}}>
           <Text>Tap to show Toast!</Text>
-        </TouchableHighlight>     
+        </TouchableHighlight>   
+        <TouchableHighlight onPress={()=>{Toast.showWithGravity("This is a Toast Center",Toast.LONG,Toast.CENTER)}}>
+          <Text>Tap to show Toast Center!</Text>
+        </TouchableHighlight>
       </View>
     );
   }
