@@ -19,7 +19,39 @@ NSInteger const LRDRCTSimpleToastGravityTop = 3;
 @interface LRDRCTSimpleToast : NSObject <RCTBridgeModule>
 @end
 
-@implementation LRDRCTSimpleToast
+@implementation LRDRCTSimpleToast {
+    CGFloat _keyOffset;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _keyOffset = 0;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWasShown:)
+                                                     name:UIKeyboardDidShowNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillHiden:)
+                                                     name:UIKeyboardWillHideNotification
+                                                   object:nil];
+    }
+    return self;
+}
+
+- (void)keyboardWasShown:(NSNotification *)notification {
+    
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    int height = MIN(keyboardSize.height,keyboardSize.width);
+    int width = MAX(keyboardSize.height,keyboardSize.width);
+    
+    _keyOffset = height;
+}
+
+- (void)keyboardWillHiden:(NSNotification *)notification {
+    _keyOffset = 0;
+}
+
 
 RCT_EXPORT_MODULE()
 
@@ -45,6 +77,7 @@ RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg duration:(double)duration grav
     dispatch_async(dispatch_get_main_queue(), ^{
         UIView *root = [[[[[UIApplication sharedApplication] delegate] window] rootViewController] view];
         CGRect bound = root.bounds;
+        bound.size.height -= _keyOffset;
         if (bound.size.height > LRDRCTSimpleToastBottomOffset*2) {
             bound.origin.y += LRDRCTSimpleToastBottomOffset;
             bound.size.height -= LRDRCTSimpleToastBottomOffset*2;
