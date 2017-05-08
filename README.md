@@ -4,7 +4,6 @@ React Native Toast component for both Android and iOS. It just lets iOS users ha
 This is based on work at https://github.com/xgfe/react-native-simple-toast.
 
 ## Install
-You can use [rnpm](https://github.com/rnpm/rnpm) to install native component easily;
 
 ```bash
 npm install react-native-simple-toast --save
