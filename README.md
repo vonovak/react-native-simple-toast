@@ -9,6 +9,7 @@ This is based on work at https://github.com/xgfe/react-native-simple-toast.
 npm install react-native-simple-toast --save
 react-native link react-native-simple-toast
 ```
+then rebuild your project
 
 ## Usage
 
