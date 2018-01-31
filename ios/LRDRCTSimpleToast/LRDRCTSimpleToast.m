@@ -65,6 +65,11 @@ RCT_EXPORT_MODULE()
              };
 }
 
++ (BOOL)requiresMainQueueSetup
+{
+    return NO;
+}
+
 RCT_EXPORT_METHOD(show:(NSString *)msg duration:(double)duration {
     [self _show:msg duration:duration gravity:LRDRCTSimpleToastGravityBottom];
 });
