@@ -18,6 +18,8 @@ import Toast from 'react-native-simple-toast';
 
 Toast.show('This is a toast.');
 Toast.show('This is a long toast.', Toast.LONG);
+
+Toast.showWithGravity('This is a long toast at the top.', Toast.LONG, Toast.TOP)
 ```
 
 ## License
