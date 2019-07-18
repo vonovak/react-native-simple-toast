@@ -1,6 +1,6 @@
 {
   "name": "react-native-simple-toast",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple Toast for react-native. In Android it's just native toast, in iOS it's https://github.com/scalessec/Toast",
   "homepage": "https://github.com/vonovak/react-native-simple-toast.git",
   "main": "index.js",
