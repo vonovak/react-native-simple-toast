@@ -27,28 +27,26 @@ NSInteger const LRDRCTSimpleToastGravityTop = 3;
     if (self = [super init]) {
         _keyOffset = 0;
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWasShown:)
+                                                 selector:@selector(keyboardDidShow:)
                                                      name:UIKeyboardDidShowNotification
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillHiden:)
+                                                 selector:@selector(keyboardWillHide:)
                                                      name:UIKeyboardWillHideNotification
                                                    object:nil];
     }
     return self;
 }
 
-- (void)keyboardWasShown:(NSNotification *)notification {
-    
+- (void)keyboardDidShow:(NSNotification *)notification {
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     
-    int height = MIN(keyboardSize.height,keyboardSize.width);
-    int width = MAX(keyboardSize.height,keyboardSize.width);
-    
+    int height = MIN(keyboardSize.height, keyboardSize.width);
+  
     _keyOffset = height;
 }
 
-- (void)keyboardWillHiden:(NSNotification *)notification {
+- (void)keyboardWillHide:(NSNotification *)notification {
     _keyOffset = 0;
 }
 
