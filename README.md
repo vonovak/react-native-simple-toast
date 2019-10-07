@@ -7,7 +7,7 @@ This is based on work at https://github.com/xgfe/react-native-simple-toast which
 
 ```bash
 npm install react-native-simple-toast --save
-react-native link react-native-simple-toast
+react-native link react-native-simple-toast // only RN < 0.60
 ```
 then rebuild your project
 
