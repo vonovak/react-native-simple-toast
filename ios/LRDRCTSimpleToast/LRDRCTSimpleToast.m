@@ -12,20 +12,17 @@
 NSInteger const LRDRCTSimpleToastBottomOffset = 40;
 double const LRDRCTSimpleToastShortDuration = 3.0;
 double const LRDRCTSimpleToastLongDuration = 5.0;
-NSInteger const LRDRCTSimpleToastGravityBottom = 1;
-NSInteger const LRDRCTSimpleToastGravityCenter = 2;
-NSInteger const LRDRCTSimpleToastGravityTop = 3;
 
 @interface LRDRCTSimpleToast : NSObject <RCTBridgeModule>
 @end
 
 @implementation LRDRCTSimpleToast {
-    CGFloat _keyOffset;
+    CGFloat _kbdHeight;
 }
 
 - (instancetype)init {
     if (self = [super init]) {
-        _keyOffset = 0;
+        _kbdHeight = 0;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardDidShow:)
                                                      name:UIKeyboardDidShowNotification
@@ -39,15 +36,15 @@ NSInteger const LRDRCTSimpleToastGravityTop = 3;
 }
 
 - (void)keyboardDidShow:(NSNotification *)notification {
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGSize keyboardSize = [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     
     int height = MIN(keyboardSize.height, keyboardSize.width);
-  
-    _keyOffset = height;
+    
+    _kbdHeight = height;
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    _keyOffset = 0;
+    _kbdHeight = 0;
 }
 
 
@@ -55,11 +52,11 @@ RCT_EXPORT_MODULE()
 
 - (NSDictionary *)constantsToExport {
     return @{
-             @"SHORT": [NSNumber numberWithDouble:LRDRCTSimpleToastShortDuration],
-             @"LONG": [NSNumber numberWithDouble:LRDRCTSimpleToastLongDuration],
-             @"BOTTOM": [NSNumber numberWithInteger:LRDRCTSimpleToastGravityBottom],
-             @"CENTER": [NSNumber numberWithInteger:LRDRCTSimpleToastGravityCenter],
-             @"TOP": [NSNumber numberWithInteger:LRDRCTSimpleToastGravityTop]
+             @"SHORT": @(LRDRCTSimpleToastShortDuration),
+             @"LONG": @(LRDRCTSimpleToastLongDuration),
+             @"BOTTOM": CSToastPositionBottom,
+             @"CENTER": CSToastPositionCenter,
+             @"TOP": CSToastPositionTop
              };
 }
 
@@ -69,12 +66,44 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_METHOD(show:(NSString *)msg duration:(double)duration {
-    [self _show:msg duration:duration gravity:LRDRCTSimpleToastGravityBottom];
+    [self _show:msg duration:duration gravity:CSToastPositionBottom];
 });
 
-RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg duration:(double)duration gravity:(nonnull NSNumber *)gravity{
-    [self _show:msg duration:duration gravity:gravity.intValue];
+RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg duration:(double)duration gravity:(nonnull NSString *)gravity{
+    [self _show:msg duration:duration gravity:gravity];
 });
+
+- (void)_show:(NSString *)msg duration:(NSTimeInterval)duration gravity:(NSString*)gravity {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIView * view = [self getToastView];
+        UIView __weak *blockView = view;
+        [view makeToast:msg
+               duration:duration
+               position:gravity
+                  title:nil
+                  image:nil
+                  style:nil
+             completion:^(BOOL didTap) {
+                 [blockView removeFromSuperview];
+             }];
+    });
+}
+
+- (UIView *)getToastView {
+    UIViewController *ctrl = [self visibleViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+    //UIView *root = [[[[[UIApplication sharedApplication] delegate] window] rootViewController] view];
+    UIView *root = [ctrl view];
+    CGRect bound = root.bounds;
+    bound.size.height -= self->_kbdHeight;
+    if (bound.size.height > LRDRCTSimpleToastBottomOffset*2) {
+        bound.origin.y += LRDRCTSimpleToastBottomOffset;
+        bound.size.height -= LRDRCTSimpleToastBottomOffset*2;
+    }
+    UIView *view = [[UIView alloc] initWithFrame:bound];
+    view.userInteractionEnabled = NO;
+    [root addSubview:view];
+    return view;
+}
 
 - (UIViewController *)visibleViewController:(UIViewController *)rootViewController
 {
@@ -100,41 +129,6 @@ RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg duration:(double)duration grav
     UIViewController *presentedViewController = (UIViewController *)rootViewController.presentedViewController;
     
     return [self visibleViewController:presentedViewController];
-}
-
-- (void)_show:(NSString *)msg duration:(NSTimeInterval)duration gravity:(NSInteger)gravity {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //UIView *root = [[[[[UIApplication sharedApplication] delegate] window] rootViewController] view];
-        UIViewController *ctrl = [self visibleViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
-        UIView *root = [ctrl view];
-        CGRect bound = root.bounds;
-        bound.size.height -= _keyOffset;
-        if (bound.size.height > LRDRCTSimpleToastBottomOffset*2) {
-            bound.origin.y += LRDRCTSimpleToastBottomOffset;
-            bound.size.height -= LRDRCTSimpleToastBottomOffset*2;
-        }
-        UIView *view = [[UIView alloc] initWithFrame:bound];
-        view.userInteractionEnabled = NO;
-        [root addSubview:view];
-        UIView __weak *blockView = view;
-        id position;
-        if (gravity == LRDRCTSimpleToastGravityTop) {
-            position = CSToastPositionTop;
-        } else if (gravity == LRDRCTSimpleToastGravityCenter) {
-            position = CSToastPositionCenter;
-        } else {
-            position = CSToastPositionBottom;
-        }
-        [view makeToast:msg
-            duration:duration
-            position:position
-            title:nil
-            image:nil
-            style:nil
-            completion:^(BOOL didTap) {
-                [blockView removeFromSuperview];
-            }];
-    });
 }
 
 @end
