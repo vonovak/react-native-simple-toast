@@ -1,18 +1,16 @@
-import { NativeModules, ToastAndroid, Platform } from 'react-native'
-
 declare var SimpleToast: {
   // Toast duration constants
   SHORT: number,
   LONG: number,
 
   // Toast gravity constants
-  TOP: number,
-  BOTTOM: number,
-  CENTER: number,
+  TOP: string,
+  BOTTOM: string,
+  CENTER: string,
 
   show: (message: string, duration?: number) => void,
 
-  showWithGravity: (message: string, duration: number, gravity: number) => void
+  showWithGravity: (message: string, duration: number, gravity: string) => void
 }
 
 export default SimpleToast
