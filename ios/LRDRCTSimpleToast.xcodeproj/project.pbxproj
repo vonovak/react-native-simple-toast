@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15209BFA1D250FB1000D0F44 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 15209BF81D250FB1000D0F44 /* UIView+Toast.m */; };
 		15209BFB1D250FB1000D0F44 /* LRDRCTSimpleToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 15209BF91D250FB1000D0F44 /* LRDRCTSimpleToast.m */; };
 /* End PBXBuildFile section */
 
@@ -25,9 +24,7 @@
 
 /* Begin PBXFileReference section */
 		15209BEF1D250F63000D0F44 /* libLRDRCTSimpleToast.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLRDRCTSimpleToast.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		15209BF81D250FB1000D0F44 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		15209BF91D250FB1000D0F44 /* LRDRCTSimpleToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRDRCTSimpleToast.m; sourceTree = "<group>"; };
-		15209BFC1D250FB7000D0F44 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,8 +41,6 @@
 		15209BF01D250F63000D0F44 /* LRDRCTSimpleToast */ = {
 			isa = PBXGroup;
 			children = (
-				15209BFC1D250FB7000D0F44 /* UIView+Toast.h */,
-				15209BF81D250FB1000D0F44 /* UIView+Toast.m */,
 				15209BF91D250FB1000D0F44 /* LRDRCTSimpleToast.m */,
 			);
 			path = LRDRCTSimpleToast;
@@ -106,6 +101,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 327633391BFAAD7E004DA88E;
@@ -124,7 +120,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				15209BFB1D250FB1000D0F44 /* LRDRCTSimpleToast.m in Sources */,
-				15209BFA1D250FB1000D0F44 /* UIView+Toast.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

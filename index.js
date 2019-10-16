@@ -1,31 +1,22 @@
-import {NativeModules,ToastAndroid,Platform} from 'react-native';
+import { NativeModules, ToastAndroid, Platform } from 'react-native';
 
-var RCTToastAndroid = Platform.OS === 'android' ? ToastAndroid : NativeModules.LRDRCTSimpleToast;
+const RCTToast = Platform.OS === 'android' ? ToastAndroid : NativeModules.LRDRCTSimpleToast;
 
-var SimpleToast = {
+export default {
   // Toast duration constants
-  SHORT: RCTToastAndroid.SHORT,
-  LONG: RCTToastAndroid.LONG,
+  SHORT: RCTToast.SHORT,
+  LONG: RCTToast.LONG,
 
   // Toast gravity constants
-  TOP: RCTToastAndroid.TOP,
-  BOTTOM: RCTToastAndroid.BOTTOM,
-  CENTER: RCTToastAndroid.CENTER,
+  TOP: RCTToast.TOP,
+  BOTTOM: RCTToast.BOTTOM,
+  CENTER: RCTToast.CENTER,
 
-  show: function (
-    message,
-    duration
-  ) {
-    RCTToastAndroid.show(message, duration === undefined ? this.SHORT : duration);
+  show: function(message, duration) {
+    RCTToast.show(message, duration === undefined ? RCTToast.SHORT : duration);
   },
 
-  showWithGravity: function (
-    message,
-    duration,
-    gravity,
-  ) {
-    RCTToastAndroid.showWithGravity(message, duration === undefined ? this.SHORT : duration, gravity);
+  showWithGravity: function(message, duration, gravity) {
+    RCTToast.showWithGravity(message, duration === undefined ? RCTToast.SHORT : duration, gravity);
   },
 };
-
-export default SimpleToast;
