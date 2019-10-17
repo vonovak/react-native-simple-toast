@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "RCTBridgeModule.h"
 #import "UIView+Toast.h"
+#import <React/RCTUtils.h>
 
 NSInteger const LRDRCTSimpleToastBottomOffset = 40;
 double const LRDRCTSimpleToastShortDuration = 3.0;
@@ -90,8 +91,7 @@ RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg duration:(double)duration grav
 }
 
 - (UIView *)getToastView {
-    UIViewController *ctrl = [self visibleViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
-    //UIView *root = [[[[[UIApplication sharedApplication] delegate] window] rootViewController] view];
+    UIViewController *ctrl = RCTPresentedViewController();
     UIView *root = [ctrl view];
     CGRect bound = root.bounds;
     bound.size.height -= self->_kbdHeight;
@@ -103,32 +103,6 @@ RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg duration:(double)duration grav
     view.userInteractionEnabled = NO;
     [root addSubview:view];
     return view;
-}
-
-- (UIViewController *)visibleViewController:(UIViewController *)rootViewController
-{
-    if (rootViewController.presentedViewController == nil)
-    {
-        return rootViewController;
-    }
-    if ([rootViewController.presentedViewController isKindOfClass:[UINavigationController class]])
-    {
-        UINavigationController *navigationController = (UINavigationController *)rootViewController.presentedViewController;
-        UIViewController *lastViewController = [[navigationController viewControllers] lastObject];
-        
-        return [self visibleViewController:lastViewController];
-    }
-    if ([rootViewController.presentedViewController isKindOfClass:[UITabBarController class]])
-    {
-        UITabBarController *tabBarController = (UITabBarController *)rootViewController.presentedViewController;
-        UIViewController *selectedViewController = tabBarController.selectedViewController;
-        
-        return [self visibleViewController:selectedViewController];
-    }
-    
-    UIViewController *presentedViewController = (UIViewController *)rootViewController.presentedViewController;
-    
-    return [self visibleViewController:presentedViewController];
 }
 
 @end
