@@ -12,11 +12,20 @@ export default {
   BOTTOM: RCTToast.BOTTOM,
   CENTER: RCTToast.CENTER,
 
-  show: function(message, duration) {
-    RCTToast.show(message, duration === undefined ? RCTToast.SHORT : duration);
+  show(message, duration, viewControllerBlacklist) {
+    RCTToast.show(
+      message,
+      duration === undefined ? RCTToast.SHORT : duration,
+      viewControllerBlacklist
+    );
   },
 
-  showWithGravity: function(message, duration, gravity) {
-    RCTToast.showWithGravity(message, duration === undefined ? RCTToast.SHORT : duration, gravity);
+  showWithGravity(message, duration, gravity, viewControllerBlacklist) {
+    RCTToast.showWithGravity(
+      message,
+      duration === undefined ? RCTToast.SHORT : duration,
+      gravity,
+      viewControllerBlacklist
+    );
   },
 };

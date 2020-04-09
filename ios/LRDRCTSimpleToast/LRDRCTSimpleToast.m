@@ -61,22 +61,30 @@ RCT_EXPORT_MODULE()
              };
 }
 
-+ (BOOL)requiresMainQueueSetup
-{
++ (BOOL)requiresMainQueueSetup {
     return NO;
 }
 
-RCT_EXPORT_METHOD(show:(NSString *)msg duration:(double)duration {
-    [self _show:msg duration:duration gravity:CSToastPositionBottom];
+RCT_EXPORT_METHOD(show:(NSString *)msg
+                  duration:(double)duration
+                  viewControllerBlacklist: (nullable NSArray<NSString*>*) viewControllerBlacklist {
+    [self _show:msg duration:duration gravity:CSToastPositionBottom viewControllerBlacklist:viewControllerBlacklist];
 });
 
-RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg duration:(double)duration gravity:(nonnull NSString *)gravity{
-    [self _show:msg duration:duration gravity:gravity];
+RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg
+                  duration:(double)duration
+                  gravity:(nonnull const NSString * __strong)gravity
+                  viewControllerBlacklist: (nullable NSArray<NSString*>*) viewControllerBlacklist{
+  [self _show:msg duration:duration gravity:gravity viewControllerBlacklist:viewControllerBlacklist];
 });
 
-- (void)_show:(NSString *)msg duration:(NSTimeInterval)duration gravity:(NSString*)gravity {
+- (void)_show:(NSString *)msg
+     duration:(NSTimeInterval)duration
+      gravity:(nonnull const NSString * __strong)gravity
+viewControllerBlacklist: (nullable NSArray<NSString*>*) viewControllerBlacklist {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIView * view = [self getToastView];
+      UIViewController* presentedViewController = [self getViewControllerBlacklisted: viewControllerBlacklist];
+      UIView * view = [self getToastView:presentedViewController];
         UIView __weak *blockView = view;
         [view makeToast:msg
                duration:duration
@@ -90,8 +98,36 @@ RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg duration:(double)duration grav
     });
 }
 
-- (UIView *)getToastView {
-    UIViewController *ctrl = RCTPresentedViewController();
+- (UIViewController*) getViewControllerBlacklisted: (nullable NSArray<NSString*>*) viewControllerBlacklist {
+  if (RCTRunningInAppExtension()) {
+    return nil;
+  }
+
+  UIViewController *controller = RCTKeyWindow().rootViewController;
+  UIViewController *presentedController = controller.presentedViewController;
+  while (presentedController && ![presentedController isBeingDismissed]
+         && ![LRDRCTSimpleToast isBlacklisted:presentedController blacklist:viewControllerBlacklist]) {
+    controller = presentedController;
+    presentedController = controller.presentedViewController;
+  }
+
+  return controller;
+}
+
++(BOOL) isBlacklisted: (UIViewController*) ctrl blacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
+  if (!viewControllerBlacklist) {
+    return NO;
+  }
+  for (NSString* className in viewControllerBlacklist) {
+    Class blacklistedClass = NSClassFromString(className);
+    if ([ctrl isKindOfClass:blacklistedClass]) {
+      return YES;
+    }
+  }
+  return NO;
+}
+
+- (UIView *)getToastView: (UIViewController*) ctrl {
     UIView *root = [ctrl view];
     CGRect bound = root.bounds;
     bound.size.height -= self->_kbdHeight;
