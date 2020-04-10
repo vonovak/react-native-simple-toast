@@ -31,7 +31,8 @@ viewControllerBlacklist?: Array<string>
 ) => void,
 ```
 
-Note on `viewControllerBlacklist`: when presenting the Toast, we need to find the presented ViewController (VC). The Toast will be presented in that VC. For Example, let's say you're showing a `ReactNative.Modal` in your app - in that case, the presented VC is a `RCTModalHostViewController`.
+Note on `viewControllerBlacklist`: this is an iOS-only option, it is ignored on android.
+When presenting the Toast, we need to find the presented ViewController (VC). The Toast will be presented in that VC. For Example, let's say you're showing a `ReactNative.Modal` in your app - in that case, the presented VC is a `RCTModalHostViewController`.
 
 If you present a Toast while that `Modal` is shown, and then hide the `Modal`, the Toast will disappear together with the `Modal`.
 
