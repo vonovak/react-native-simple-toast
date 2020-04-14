@@ -15,6 +15,6 @@
     "type": "git",
     "url": "git+https://github.com/vonovak/react-native-simple-toast.git"
   },
-  "author": "xgfe",
+  "author": "Vojtech Novak (https://github.com/vonovak/)",
   "license": "MIT"
 }

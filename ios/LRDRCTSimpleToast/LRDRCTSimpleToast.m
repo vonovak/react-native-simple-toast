@@ -67,21 +67,15 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(show:(NSString *)msg
                   duration:(double)duration
-                  viewControllerBlacklist: (nullable NSArray<NSString*>*) viewControllerBlacklist {
-    [self _show:msg duration:duration gravity:CSToastPositionBottom viewControllerBlacklist:viewControllerBlacklist];
-});
-
-RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg
-                  duration:(double)duration
-                  gravity:(nonnull const NSString * __strong)gravity
-                  viewControllerBlacklist: (nullable NSArray<NSString*>*) viewControllerBlacklist{
+                  gravity:(nonnull NSString *)gravity
+                  viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
   [self _show:msg duration:duration gravity:gravity viewControllerBlacklist:viewControllerBlacklist];
 });
 
 - (void)_show:(NSString *)msg
      duration:(NSTimeInterval)duration
-      gravity:(nonnull const NSString * __strong)gravity
-viewControllerBlacklist: (nullable NSArray<NSString*>*) viewControllerBlacklist {
+      gravity:(nonnull NSString *)gravity
+viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
     dispatch_async(dispatch_get_main_queue(), ^{
       UIViewController* presentedViewController = [self getViewControllerBlacklisted: viewControllerBlacklist];
       UIView * view = [self getToastView:presentedViewController];

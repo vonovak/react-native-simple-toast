@@ -2,7 +2,7 @@
 
 React Native Toast component for both Android and iOS. It just lets iOS users have the same toast experience as on Android. Using [scalessec/Toast](https://github.com/scalessec/Toast) on iOS and the standard [ToastAndroid](http://facebook.github.io/react-native/docs/toastandroid.html) on Android;
 
-This is based on work at https://github.com/xgfe/react-native-simple-toast which is no longer maintained.
+This is based on work at https://github.com/xgfe/react-native-simple-toast, but doesn't have much in common any more.
 
 ## Install
 
@@ -19,6 +19,7 @@ then rebuild your project
 the module exposes the following functions:
 
 ```js
+// duration Toast.SHORT is used by default
 show: (message: string, duration?: number, viewControllerBlacklist?: Array<string>) => void,
 ```
 
