@@ -16,11 +16,15 @@ export default {
   CENTER: RCTToast.CENTER,
 
   show(message, duration, viewControllerBlacklist) {
-    this.showWithGravity(message, duration, RCTToast.BOTTOM, viewControllerBlacklist);
+    RCTToast.show(
+      message,
+      duration === undefined ? RCTToast.SHORT : duration,
+      viewControllerBlacklist
+    );
   },
 
   showWithGravity(message, duration, gravity, viewControllerBlacklist) {
-    RCTToast.show(
+    RCTToast.showWithGravity(
       message,
       duration === undefined ? RCTToast.SHORT : duration,
       gravity,

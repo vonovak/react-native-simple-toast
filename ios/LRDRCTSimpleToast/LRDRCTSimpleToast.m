@@ -67,8 +67,14 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(show:(NSString *)msg
                   duration:(double)duration
-                  gravity:(nonnull NSString *)gravity
                   viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
+  [self _show:msg duration:duration gravity:CSToastPositionBottom viewControllerBlacklist:viewControllerBlacklist];
+});
+
+RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg
+                  duration:(double)duration
+                  gravity:(nonnull NSString *)gravity
+                  viewControllerBlacklist: (nullable NSArray<NSString*>*) viewControllerBlacklist {
   [self _show:msg duration:duration gravity:gravity viewControllerBlacklist:viewControllerBlacklist];
 });
 
