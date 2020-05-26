@@ -37,7 +37,7 @@ When presenting the Toast, we need to find the presented ViewController (VC). Th
 
 If you present a Toast while that `Modal` is shown, and then hide the `Modal`, the Toast will disappear together with the `Modal`.
 
-`viewControllerBlacklist` allows to say what VCs should not be considered when Toast is shown. This is to allow to work around issues like [#11](https://github.com/vonovak/react-native-simple-toast/issues/11) or [#13](https://github.com/vonovak/react-native-simple-toast/issues/13).
+`viewControllerBlacklist` allows to say what VCs should not be considered when Toast is shown. This is to allow to work around issues where Toast would be displayed weirdly in an `Alert` or would hide too quickly when shown in a `RCTModalHostViewController`.
 
 The values `viewControllerBlacklist` has been tested with are:
 
