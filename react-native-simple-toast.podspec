@@ -15,6 +15,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/vonovak/react-native-simple-toast.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m}"
 
-  s.dependency 'React'
+  s.dependency 'React-Core'
   s.dependency 'Toast', '~> 4.0.0'
 end
