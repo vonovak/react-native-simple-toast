@@ -1,23 +1,18 @@
-//
-//  LRDRCTSimpleToast.m
-//  LRDRCTSimpleToast
-//
-//  Created by luoruidong on 16/6/30.
-//  Copyright © 2016年 luoruidong. All rights reserved.
-//
+#ifdef RCT_NEW_ARCH_ENABLED
+#import "RTNSimpleToastSpec.h"   //----
+#endif
+
+#import "RTNSimpleToast.h"
 #import <UIKit/UIKit.h>
 #import <React/RCTBridgeModule.h>
 #import "UIView+Toast.h"
 #import <React/RCTUtils.h>
 
-NSInteger const LRDRCTSimpleToastBottomOffset = 40;
-double const LRDRCTSimpleToastShortDuration = 3.0;
-double const LRDRCTSimpleToastLongDuration = 5.0;
+NSInteger const RTNSimpleToastBottomOffset = 40;
+double const RTNSimpleToastShortDuration = 3.0;
+double const RTNSimpleToastLongDuration = 5.0;
 
-@interface LRDRCTSimpleToast : NSObject <RCTBridgeModule>
-@end
-
-@implementation LRDRCTSimpleToast {
+@implementation RTNSimpleToast {
     CGFloat _kbdHeight;
 }
 
@@ -53,8 +48,8 @@ RCT_EXPORT_MODULE()
 
 - (NSDictionary *)constantsToExport {
     return @{
-             @"SHORT": @(LRDRCTSimpleToastShortDuration),
-             @"LONG": @(LRDRCTSimpleToastLongDuration),
+             @"SHORT": @(RTNSimpleToastShortDuration),
+             @"LONG": @(RTNSimpleToastLongDuration),
              @"BOTTOM": CSToastPositionBottom,
              @"CENTER": CSToastPositionCenter,
              @"TOP": CSToastPositionTop
@@ -68,7 +63,8 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(show:(NSString *)msg
                   duration:(double)duration
                   viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
-  [self _show:msg duration:duration gravity:CSToastPositionBottom viewControllerBlacklist:viewControllerBlacklist];
+  [self _show:msg duration:duration gravity:(NSString *)CSToastPositionBottom viewControllerBlacklist:viewControllerBlacklist];
+
 });
 
 RCT_EXPORT_METHOD(showWithGravity:(NSString *)msg
@@ -106,7 +102,7 @@ viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
   UIViewController *controller = RCTKeyWindow().rootViewController;
   UIViewController *presentedController = controller.presentedViewController;
   while (presentedController && ![presentedController isBeingDismissed]
-         && ![LRDRCTSimpleToast isBlacklisted:presentedController blacklist:viewControllerBlacklist]) {
+         && ![RTNSimpleToast isBlacklisted:presentedController blacklist:viewControllerBlacklist]) {
     controller = presentedController;
     presentedController = controller.presentedViewController;
   }
@@ -131,9 +127,9 @@ viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
     UIView *root = [ctrl view];
     CGRect bound = root.bounds;
     bound.size.height -= self->_kbdHeight;
-    if (bound.size.height > LRDRCTSimpleToastBottomOffset*2) {
-        bound.origin.y += LRDRCTSimpleToastBottomOffset;
-        bound.size.height -= LRDRCTSimpleToastBottomOffset*2;
+    if (bound.size.height > RTNSimpleToastBottomOffset*2) {
+        bound.origin.y += RTNSimpleToastBottomOffset;
+        bound.size.height -= RTNSimpleToastBottomOffset*2;
     }
     UIView *view = [[UIView alloc] initWithFrame:bound];
     view.userInteractionEnabled = NO;
@@ -141,5 +137,12 @@ viewControllerBlacklist:(nullable NSArray<NSString*>*) viewControllerBlacklist {
     return view;
 }
 
-@end
+#ifdef RCT_NEW_ARCH_ENABLED
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule: //----
+    (const facebook::react::ObjCTurboModule::InitParams &)params
+{
+    return std::make_shared<facebook::react::NativeSimpleToastSpecJSI>(params);
+}
+#endif
 
+@end

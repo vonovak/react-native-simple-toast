@@ -1,20 +1,36 @@
 {
-  "name": "react-native-simple-toast",
-  "version": "1.1.4",
+  "name": "rtn-react-native-simple-toast",
+  "version": "0.0.1",
   "description": "Simple Toast for react-native. In Android it's just native toast, in iOS it's https://github.com/scalessec/Toast",
-  "homepage": "https://github.com/vonovak/react-native-simple-toast.git",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "react-native",
-    "toast"
+  "react-native": "src/index",
+  "source": "src/index",
+  "files": [
+    "src",
+    "android",
+    "ios",
+    "rtn-react-native-simple-toast.podspec",
+    "!android/build",
+    "!ios/build",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vonovak/react-native-simple-toast.git"
-  },
+  "keywords": ["react-native", "ios", "android", "toast"],
+  "repository": "git+https://github.com/vonovak/react-native-simple-toast.git",
   "author": "Vojtech Novak (https://github.com/vonovak/)",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "git+https://github.com/vonovak/react-native-simple-toast.git/issues"
+  },
+  "homepage": "https://github.com/vonovak/react-native-simple-toast.git#readme",
+  "devDependencies": {},
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "codegenConfig": {
+    "name": "RTNSimpleToastSpec",
+    "type": "modules",
+    "jsSrcsDir": "src"
+  }
 }
