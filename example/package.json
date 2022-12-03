@@ -1,0 +1,22 @@
+{
+  "name": "SimpleToastExample",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "pods": "RCT_NEW_ARCH_ENABLED=1 pod-install --quiet"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.71.0-rc.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.14.0",
+    "@babel/runtime": "^7.12.5",
+    "metro-react-native-babel-preset": "0.73.3",
+    "babel-plugin-module-resolver": "^4.1.0"
+  }
+}

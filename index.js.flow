@@ -1,4 +1,12 @@
 // @flow
+
+import type {ColorValue} from 'react-native/Libraries/StyleSheet/StyleSheet';
+
+export type StylesIOS = {
+  textColor?: ColorValue;
+  backgroundColor?: ColorValue;
+};
+
 declare export default {
   // Toast duration constants
   SHORT: number,
@@ -9,12 +17,19 @@ declare export default {
   BOTTOM: string,
   CENTER: string,
 
-  show: (message: string, duration?: number, viewControllerBlacklist?: Array<string>) => void,
-
+  show: (message: string, duration: number, styles: StylesIOS) => void;
   showWithGravity: (
     message: string,
     duration: number,
-    gravity: string,
-    viewControllerBlacklist?: Array<string>
-  ) => void,
+    gravity: number,
+    styles: StylesIOS
+  ) => void;
+  showWithGravityAndOffset: (
+    message: string,
+    duration: number,
+    gravity: number,
+    xOffset: number,
+    yOffset: number,
+    styles: StylesIOS
+  ) => void;
 };
