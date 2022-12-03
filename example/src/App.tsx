@@ -44,12 +44,10 @@ export default function App() {
       <ScrollView
         keyboardDismissMode={'on-drag'}
         keyboardShouldPersistTaps={'always'}
-        // contentContainerStyle={{ flexGrow: 1 }}
         automaticallyAdjustKeyboardInsets
       >
         <View style={styles.container}>
-          <Pressable
-            style={[styles.button, styles.buttonOpen]}
+          <Button
             onPress={() => {
               setModalVisible(true);
               setTimeout(() => {
@@ -60,9 +58,8 @@ export default function App() {
                 );
               }, 500);
             }}
-          >
-            <Text style={styles.textStyle}>Show Modal</Text>
-          </Pressable>
+            title="Show Modal"
+          />
           {/*<Text>{JSON.stringify(Toast, null, 2)}</Text>*/}
           <Button
             title={'simple toast'}
