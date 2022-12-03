@@ -24,7 +24,7 @@ export interface Spec extends TurboModule {
     message: string,
     duration: number,
     gravity: number,
-    styles: NativeStyles
+    styles: NativeStyles,
   ) => void;
   showWithGravityAndOffset: (
     message: string,
@@ -32,7 +32,7 @@ export interface Spec extends TurboModule {
     gravity: number,
     xOffset: number,
     yOffset: number,
-    styles: NativeStyles
+    styles: NativeStyles,
   ) => void;
 }
 

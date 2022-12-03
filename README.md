@@ -34,7 +34,7 @@ Requires React Native 0.70 or later because the lib needs new architecture suppo
 
 ```bash
 npm install react-native-simple-toast
-cd ios && pod install
+cd ios && RCT_NEW_ARCH_ENABLED=1 pod install
 ```
 
 with yarn:

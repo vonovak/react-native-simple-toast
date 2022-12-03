@@ -41,13 +41,13 @@ export default {
     message: string,
     durationSeconds: number,
     gravity: number,
-    styles: StylesIOS = {}
+    styles: StylesIOS = {},
   ) {
     RCTToast.showWithGravity(
       message,
       durationSeconds ?? constantsSource.SHORT,
       gravity,
-      processColors(styles)
+      processColors(styles),
     );
   },
 
@@ -57,7 +57,7 @@ export default {
     gravity: number,
     xOffset: number,
     yOffset: number,
-    styles: StylesIOS = {}
+    styles: StylesIOS = {},
   ) {
     RCTToast.showWithGravityAndOffset(
       message,
@@ -65,7 +65,7 @@ export default {
       gravity,
       xOffset,
       yOffset,
-      processColors(styles)
+      processColors(styles),
     );
   },
 };
