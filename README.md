@@ -73,6 +73,18 @@ Toast.showWithGravityAndOffset(
 );
 ```
 
+exported duration and positioning constants:
+
+```ts
+import Toast from 'react-native-simple-toast';
+
+Toast.LONG;
+Toast.SHORT;
+Toast.TOP;
+Toast.BOTTOM;
+Toast.CENTER;
+```
+
 Please note that `yOffset` and `xOffset` are [ignored on Android 11 and above](<https://developer.android.com/reference/android/widget/Toast#setGravity(int,%20int,%20int)>).
 
 For styling on iOS, you can pass an object with the following properties:
