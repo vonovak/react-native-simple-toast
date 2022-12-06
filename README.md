@@ -36,14 +36,7 @@ React Native Toast component for both Android and iOS. It just lets iOS users ha
 
 ## Install
 
-Requires React Native 0.70 or later because the lib needs new architecture support. Use version 1 if you need to use it with older versions of React Native.
-
-```bash
-npm install react-native-simple-toast
-cd ios && RCT_NEW_ARCH_ENABLED=1 pod install
-```
-
-with yarn:
+Requires React Native 0.70 or later because the lib needs new architecture enabled. Version 2 will not work with old architecture. Use version 1 if you need to use it with the old architecture.
 
 ```bash
 yarn add react-native-simple-toast
