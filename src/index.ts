@@ -34,7 +34,7 @@ export default {
   CENTER: constantsSource.CENTER,
 
   show(message: string, durationSeconds: number, styles: StylesIOS = {}) {
-    RCTToast.show(message, durationSeconds, processColors(styles));
+    RCTToast.show(message, durationSeconds === undefined ? constantsSource.SHORT : durationSeconds, processColors(styles));
   },
 
   showWithGravity(
