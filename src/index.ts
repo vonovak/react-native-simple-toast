@@ -36,7 +36,7 @@ export default {
   show(message: string, durationSeconds: number, styles: StylesIOS = {}) {
     RCTToast.show(
       message,
-      durationSeconds === undefined ? constantsSource.SHORT : durationSeconds,
+      durationSeconds ?? constantsSource.SHORT,
       processColors(styles),
     );
   },
