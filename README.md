@@ -96,6 +96,8 @@ type StylesIOS = {
 ```js
 import Toast from 'react-native-simple-toast';
 
+Toast.show('This is a short toast');
+
 Toast.show('This is a long toast.', Toast.LONG);
 
 Toast.showWithGravity(
