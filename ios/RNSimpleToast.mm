@@ -2,10 +2,13 @@
 
 #import "UIView+Toast.h"
 #import "RNToastViewController.h"
-#import <React/RCTUtils.h>
+//#import <React/RCTUtils.h>
 #import <React/RCTConvert.h>
 
 static double defaultPositionId = 2.0;
+
+static double const LRDRCTSimpleToastShortDuration = 2.0;
+static double const LRDRCTSimpleToastLongDuration = 3.5;
 
 static const NSDictionary *RNToastPositionMap = @{
         // just to conform to the same type of interface as android
@@ -53,36 +56,36 @@ RCT_EXPORT_MODULE()
     return NO;
 }
 
-- (facebook::react::ModuleConstants<JS::NativeSimpleToast::Constants>)constantsToExport {
-    return (facebook::react::ModuleConstants<JS::NativeSimpleToast::Constants>) [self getConstants];
+- (NSDictionary*)constantsToExport {
+    return @{
+             @"SHORT": @(LRDRCTSimpleToastShortDuration),
+             @"LONG": @(LRDRCTSimpleToastLongDuration),
+             @"BOTTOM": CSToastPositionBottom,
+             @"CENTER": CSToastPositionCenter,
+             @"TOP": CSToastPositionTop
+             };
 }
 
 - (facebook::react::ModuleConstants<JS::NativeSimpleToast::Constants>)getConstants {
-    __block facebook::react::ModuleConstants<JS::NativeSimpleToast::Constants> constants;
-    double const LRDRCTSimpleToastShortDuration = 2.0;
-    double const LRDRCTSimpleToastLongDuration = 3.5;
-    RCTUnsafeExecuteOnMainQueueSync(^{
-        constants = facebook::react::typedConstants<JS::NativeSimpleToast::Constants>({
+    return facebook::react::typedConstants<JS::NativeSimpleToast::Constants>(
+            {
                 .SHORT = LRDRCTSimpleToastShortDuration,
                 .LONG = LRDRCTSimpleToastLongDuration,
                 .TOP = 1,
                 .BOTTOM = 2,
                 .CENTER = 3,
-        });
-    });
-
-    return constants;
+            });
 }
 
-- (void)show:(NSString *)message duration:(double)duration styles:(JS::NativeSimpleToast::NativeStyles &)styles {
+- (void)show:(NSString *)message duration:(double)duration styles:(NSDictionary*)styles {
     [self _show:message duration:duration position:defaultPositionId offset:CGPointZero styles:styles];
 }
 
-- (void)showWithGravity:(NSString *)message duration:(double)duration gravity:(double)gravity styles:(JS::NativeSimpleToast::NativeStyles &)styles {
+- (void)showWithGravity:(NSString *)message duration:(double)duration gravity:(double)gravity styles:(NSDictionary*)styles {
     [self _show:message duration:duration position:gravity offset:CGPointZero styles:styles];
 }
 
-- (void)showWithGravityAndOffset:(NSString *)message duration:(double)duration gravity:(double)gravity xOffset:(double)xOffset yOffset:(double)yOffset styles:(JS::NativeSimpleToast::NativeStyles &)styles {
+- (void)showWithGravityAndOffset:(NSString *)message duration:(double)duration gravity:(double)gravity xOffset:(double)xOffset yOffset:(double)yOffset styles:(NSDictionary*)styles {
     [self _show:message duration:duration position:gravity offset:CGPointMake(xOffset, yOffset) styles:styles];
 }
 
@@ -90,13 +93,13 @@ RCT_EXPORT_MODULE()
      duration:(NSTimeInterval)duration
      position:(double)position
        offset:(CGPoint)offset
-       styles:(JS::NativeSimpleToast::NativeStyles &)styles {
+       styles:(NSDictionary*)styles {
     CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
-    if (styles.backgroundColor().has_value()) {
-        style.backgroundColor = [RCTConvert UIColor:@(styles.backgroundColor().value())];
+    if (styles[@"backgroundColor"]) {
+        style.backgroundColor = [RCTConvert UIColor:styles[@"backgroundColor"]];
     }
-    if (styles.messageColor().has_value()) {
-        style.messageColor = [RCTConvert UIColor:@(styles.messageColor().value())];
+    if (styles[@"messageColor"]) {
+        style.messageColor = [RCTConvert UIColor:styles[@"messageColor"]];
     }
 
 
@@ -168,9 +171,11 @@ RCT_EXPORT_MODULE()
     return view;
 }
 
+#ifdef RCT_NEW_ARCH_ENABLED
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
         (const facebook::react::ObjCTurboModule::InitParams &)params {
     return std::make_shared<facebook::react::NativeSimpleToastSpecJSI>(params);
 }
+#endif
 
 @end

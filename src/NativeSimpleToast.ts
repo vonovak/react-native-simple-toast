@@ -6,10 +6,10 @@ export type StylesIOS = {
   backgroundColor?: ColorValue;
 };
 
-type NativeStyles = {
-  messageColor?: number;
-  backgroundColor?: number;
-};
+// type NativeStyles = {
+//   messageColor?: number;
+//   backgroundColor?: number;
+// };
 
 export interface Spec extends TurboModule {
   getConstants: () => {
@@ -19,12 +19,12 @@ export interface Spec extends TurboModule {
     BOTTOM: number;
     CENTER: number;
   };
-  show: (message: string, duration: number, styles: NativeStyles) => void;
+  show: (message: string, duration: number, styles: Object) => void;
   showWithGravity: (
     message: string,
     duration: number,
     gravity: number,
-    styles: NativeStyles,
+    styles: Object,
   ) => void;
   showWithGravityAndOffset: (
     message: string,
@@ -32,7 +32,7 @@ export interface Spec extends TurboModule {
     gravity: number,
     xOffset: number,
     yOffset: number,
-    styles: NativeStyles,
+    styles: Object,
   ) => void;
 }
 

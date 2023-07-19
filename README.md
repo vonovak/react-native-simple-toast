@@ -4,9 +4,10 @@ React Native Toast component for both Android and iOS. It just lets iOS users ha
 
 ## Summary
 
-- extremely simple fire-and-forget api, same as `ToastAndroid`
-- renders on top of `Modal`s and `Alert`s
-- customizable styling
+✅ supports both old and new architecture
+✅ extremely simple fire-and-forget api, same as `ToastAndroid`
+✅ renders on top of `Modal`s and `Alert`s
+✅ customizable styling
 
 ## Screenshots
 
@@ -36,13 +37,9 @@ React Native Toast component for both Android and iOS. It just lets iOS users ha
 
 ## Install
 
-Requires React Native 0.70 or later because the lib needs new architecture enabled. Version 2 will not work with old architecture. Use version 1 if you need to use it with the old architecture.
-
-Please [read more about the new architecture here](https://reactnative.dev/docs/next/the-new-architecture/use-app-template#enable-the-new-architecture).
-
 ```bash
 yarn add react-native-simple-toast
-cd ios && RCT_NEW_ARCH_ENABLED=1 pod install
+cd ios && pod install
 ```
 
 then rebuild your project

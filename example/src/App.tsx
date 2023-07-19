@@ -45,6 +45,7 @@ export default function App() {
         keyboardDismissMode={'on-drag'}
         keyboardShouldPersistTaps={'always'}
         automaticallyAdjustKeyboardInsets
+        style={{ backgroundColor: 'white' }}
       >
         <View style={styles.container}>
           <Button
@@ -89,7 +90,7 @@ export default function App() {
             }}
           />
           <Button
-            title={'top toast in alert'}
+            title={'top toast in an alert'}
             onPress={() => {
               Alert.alert('this is an alert');
               setTimeout(() => {
