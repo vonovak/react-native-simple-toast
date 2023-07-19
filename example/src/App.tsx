@@ -73,7 +73,7 @@ export default function App() {
             onPress={() => {
               Toast.show('This is a styled toast on iOS.', Toast.LONG, {
                 backgroundColor: 'rgb(255, 0, 255)',
-                textColor: 'white',
+                textColor: 'black',
               });
             }}
           />

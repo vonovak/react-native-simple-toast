@@ -2,7 +2,6 @@
 
 #import "UIView+Toast.h"
 #import "RNToastViewController.h"
-//#import <React/RCTUtils.h>
 #import <React/RCTConvert.h>
 
 static double defaultPositionId = 2.0;
@@ -60,12 +59,13 @@ RCT_EXPORT_MODULE()
     return @{
              @"SHORT": @(LRDRCTSimpleToastShortDuration),
              @"LONG": @(LRDRCTSimpleToastLongDuration),
-             @"BOTTOM": CSToastPositionBottom,
-             @"CENTER": CSToastPositionCenter,
-             @"TOP": CSToastPositionTop
+             @"TOP": @(1),
+             @"BOTTOM": @(2),
+             @"CENTER": @(3),
              };
 }
 
+#ifdef RCT_NEW_ARCH_ENABLED
 - (facebook::react::ModuleConstants<JS::NativeSimpleToast::Constants>)getConstants {
     return facebook::react::typedConstants<JS::NativeSimpleToast::Constants>(
             {
@@ -76,6 +76,7 @@ RCT_EXPORT_MODULE()
                 .CENTER = 3,
             });
 }
+#endif
 
 RCT_EXPORT_METHOD(show:(NSString *)message duration:(double)duration styles:(NSDictionary*)styles {
     [self _show:message duration:duration position:defaultPositionId offset:CGPointZero styles:styles];
