@@ -77,17 +77,17 @@ RCT_EXPORT_MODULE()
             });
 }
 
-- (void)show:(NSString *)message duration:(double)duration styles:(NSDictionary*)styles {
+RCT_EXPORT_METHOD(show:(NSString *)message duration:(double)duration styles:(NSDictionary*)styles {
     [self _show:message duration:duration position:defaultPositionId offset:CGPointZero styles:styles];
-}
+});
 
-- (void)showWithGravity:(NSString *)message duration:(double)duration gravity:(double)gravity styles:(NSDictionary*)styles {
+RCT_EXPORT_METHOD(showWithGravity:(NSString *)message duration:(double)duration gravity:(double)gravity styles:(NSDictionary*)styles {
     [self _show:message duration:duration position:gravity offset:CGPointZero styles:styles];
-}
+});
 
-- (void)showWithGravityAndOffset:(NSString *)message duration:(double)duration gravity:(double)gravity xOffset:(double)xOffset yOffset:(double)yOffset styles:(NSDictionary*)styles {
+RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)duration gravity:(double)gravity xOffset:(double)xOffset yOffset:(double)yOffset styles:(NSDictionary*)styles {
     [self _show:message duration:duration position:gravity offset:CGPointMake(xOffset, yOffset) styles:styles];
-}
+});
 
 - (void)_show:(NSString *)msg
      duration:(NSTimeInterval)duration
