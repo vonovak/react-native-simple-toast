@@ -148,16 +148,15 @@ RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)
         safeInsets = view.safeAreaInsets;
     }
 
-    CGFloat topPadding = safeInsets.top;
-    CGFloat bottomPadding = safeInsets.bottom;
-
     if ([CSToastPositionTop isEqualToString:gravity]) {
+        CGFloat topPadding = safeInsets.top;
         return CGPointMake(view.bounds.size.width / 2.0, (toast.frame.size.height / 2.0) + topPadding);
     } else if ([CSToastPositionCenter isEqualToString:gravity]) {
         return CGPointMake(view.bounds.size.width / 2.0, view.bounds.size.height / 2.0);
     }
 
     // default to bottom
+    CGFloat bottomPadding = safeInsets.bottom;
     return CGPointMake(view.bounds.size.width / 2.0, (view.bounds.size.height - (toast.frame.size.height / 2.0)) - bottomPadding);
 }
 
