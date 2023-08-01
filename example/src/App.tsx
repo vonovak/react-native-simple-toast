@@ -49,6 +49,12 @@ export default function App() {
       >
         <View style={styles.container}>
           <Button
+            title={'simple toast'}
+            onPress={() => {
+              Toast.show('This is a toast.', Toast.SHORT);
+            }}
+          />
+          <Button
             onPress={() => {
               setModalVisible(true);
               setTimeout(() => {
@@ -59,15 +65,10 @@ export default function App() {
                 );
               }, 500);
             }}
-            title="Show Modal"
+            title="toast on top of Modal"
           />
           {/*<Text>{JSON.stringify(Toast, null, 2)}</Text>*/}
-          <Button
-            title={'simple toast'}
-            onPress={() => {
-              Toast.show('This is a toast.', Toast.SHORT);
-            }}
-          />
+
           <Button
             title={'styled toast'}
             onPress={() => {
@@ -94,7 +95,11 @@ export default function App() {
             onPress={() => {
               Alert.alert('this is an alert');
               setTimeout(() => {
-                Toast.showWithGravity('This is an alert toast.', 5, Toast.TOP);
+                Toast.showWithGravity(
+                  'This is an alert toast.',
+                  5,
+                  Toast.CENTER,
+                );
               }, 100);
             }}
           />
