@@ -21,7 +21,7 @@
 }
 
 - (void)show:(void (^)(void))completion {
-    self.modalPresentationStyle = UIModalPresentationFullScreen;
+    self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self.toastWindow setHidden:NO];
     [self.toastWindow.rootViewController presentViewController:self animated:NO completion:completion];
 }
