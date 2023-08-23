@@ -4,7 +4,7 @@ React Native Toast component for both Android and iOS. It just lets iOS users ha
 
 ## Summary
 
-✅ supports both old and new architecture
+✅ supports both old and new architecture (RN >= 0.71 is required for new arch)
 
 ✅ extremely simple fire-and-forget api, same as `ToastAndroid`
 
