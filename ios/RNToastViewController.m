@@ -2,16 +2,7 @@
 #import "RNToastViewController.h"
 #import <React/RCTUtils.h>
 
-@interface RNToastViewController ()
-
-@property(nonatomic, strong) UIWindow *toastWindow;
-
-@end
-
 @implementation RNToastViewController
-
-// presenting directly from RCTSharedApplication().keyWindow won't work for Alerts
-// which is why we have our own VC
 
 - (UIWindow *)toastWindow
 {
@@ -29,7 +20,6 @@
         }
         
         if (_toastWindow) {
-            _toastWindow.rootViewController = [UIViewController new];
             _toastWindow.windowLevel = UIWindowLevelAlert + 1;
             _toastWindow.userInteractionEnabled = NO;
         }
@@ -38,10 +28,8 @@
     return _toastWindow;
 }
 
-- (void)show:(void (^)(void))completion {
-    self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+- (void)show {
     [self.toastWindow setHidden:NO];
-    [self.toastWindow.rootViewController presentViewController:self animated:NO completion:completion];
 }
 
 - (void)hide {
