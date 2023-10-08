@@ -1,8 +1,10 @@
 #import <UIKit/UIKit.h>
 
-@interface RNToastViewController : UIViewController
+@interface RNToastViewController : NSObject
 
-- (void)show:(void (^)(void))completion;
+@property(nonatomic, strong) UIWindow *toastWindow;
+
+- (void)show;
 - (void)hide;
 
 @end

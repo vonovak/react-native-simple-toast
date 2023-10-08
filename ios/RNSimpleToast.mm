@@ -107,24 +107,22 @@ RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)
     NSString *positionString = RNToastPositionMap[@(position)] ?: CSToastPositionBottom;
     dispatch_async(dispatch_get_main_queue(), ^{
         RNToastViewController *controller = [RNToastViewController new];
-        [controller show:^() {
-            UIView *view = [self getToastView:controller];
-            UIView __weak *weakView = view;
-            RNToastViewController __weak *weakController = controller;
+        [controller show];
+        UIView *view = [self getToastView:controller];
+        UIView __weak *weakView = view;
 
-            UIView *toast = [view toastViewForMessage:msg title:nil image:nil style:style];
+        UIView *toast = [view toastViewForMessage:msg title:nil image:nil style:style];
 
-            void (^completion)(BOOL) = ^(BOOL didTap) {
-                [weakView removeFromSuperview];
-                [weakController hide];
-            };
-            if (!CGPointEqualToPoint(offset, CGPointZero)) {
-                CGPoint centerWithOffset = [self getCenterWithOffset:offset view:view toast:toast position:positionString];
-                [view showToast:toast duration:duration position:[NSValue valueWithCGPoint:centerWithOffset] completion:completion];
-            } else {
-                [view showToast:toast duration:duration position:positionString completion:completion];
-            }
-        }];
+        void (^completion)(BOOL) = ^(BOOL didTap) {
+            [weakView removeFromSuperview];
+            [controller hide];
+        };
+        if (!CGPointEqualToPoint(offset, CGPointZero)) {
+            CGPoint centerWithOffset = [self getCenterWithOffset:offset view:view toast:toast position:positionString];
+            [view showToast:toast duration:duration position:[NSValue valueWithCGPoint:centerWithOffset] completion:completion];
+        } else {
+            [view showToast:toast duration:duration position:positionString completion:completion];
+        }
     });
 }
 
@@ -160,8 +158,8 @@ RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)
     return CGPointMake(view.bounds.size.width / 2.0, (view.bounds.size.height - (toast.frame.size.height / 2.0)) - bottomPadding);
 }
 
-- (UIView *)getToastView:(UIViewController *)ctrl {
-    UIView *rootView = ctrl.view;
+- (UIView *)getToastView:(RNToastViewController *)ctrl {
+    UIView *rootView = ctrl.toastWindow;
     CGRect bounds = rootView.bounds;
     bounds.size.height -= _kbdHeight;
 
