@@ -1,6 +1,7 @@
 
 #import "RNToastViewController.h"
 #import <React/RCTUtils.h>
+#import "RNToastWindow.h"
 
 @implementation RNToastViewController
 
@@ -12,16 +13,11 @@
         if (_toastWindow == nil) {
             UIWindow *keyWindow = RCTSharedApplication().keyWindow;
             if (keyWindow) {
-                _toastWindow = [[UIWindow alloc] initWithFrame:keyWindow.bounds];
+                _toastWindow = [[RNToastWindow alloc] initWithFrame:keyWindow.bounds];
             } else {
                 // keyWindow is nil, so we cannot create and initialize _toastWindow
                 NSLog(@"Unable to create alert window: keyWindow is nil");
             }
-        }
-        
-        if (_toastWindow) {
-            _toastWindow.windowLevel = UIWindowLevelAlert + 1;
-            _toastWindow.userInteractionEnabled = NO;
         }
     }
     
@@ -48,7 +44,7 @@
         for (UIScene *scene in RCTSharedApplication().connectedScenes) {
             if (scene.activationState == UISceneActivationStateForegroundActive &&
                 [scene isKindOfClass:[UIWindowScene class]]) {
-                return [[UIWindow alloc] initWithWindowScene:(UIWindowScene *)scene];
+                return [[RNToastWindow alloc] initWithWindowScene:(UIWindowScene *)scene];
             }
         }
     }

@@ -3,6 +3,7 @@
 #import "UIView+Toast.h"
 #import "RNToastViewController.h"
 #import <React/RCTConvert.h>
+#import "RNToastView.h"
 
 static double defaultPositionId = 2.0;
 
@@ -26,7 +27,7 @@ RCT_EXPORT_MODULE()
 - (instancetype)init {
     if (self = [super init]) {
         _kbdHeight = 0;
-        [CSToastManager setTapToDismissEnabled:NO];
+        [CSToastManager setTapToDismissEnabled:YES];
         [CSToastManager setQueueEnabled:YES];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardDidShow:)
@@ -163,8 +164,7 @@ RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)
     CGRect bounds = rootView.bounds;
     bounds.size.height -= _kbdHeight;
 
-    UIView *view = [[UIView alloc] initWithFrame:bounds];
-    view.userInteractionEnabled = NO;
+    UIView *view = [[RNToastView alloc] initWithFrame:bounds];
     [rootView addSubview:view];
     return view;
 }
