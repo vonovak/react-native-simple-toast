@@ -1,7 +1,7 @@
 import type { TurboModule, ColorValue } from 'react-native';
 import { TurboModuleRegistry } from 'react-native';
 
-export type StylesIOS = {
+export type OptionsIOS = {
   textColor?: ColorValue;
   backgroundColor?: ColorValue;
   tapToDismissEnabled?: boolean;
@@ -20,12 +20,12 @@ export interface Spec extends TurboModule {
     BOTTOM: number;
     CENTER: number;
   };
-  show: (message: string, duration: number, styles: Object) => void;
+  show: (message: string, duration: number, options: Object) => void;
   showWithGravity: (
     message: string,
     duration: number,
     gravity: number,
-    styles: Object,
+    options: Object,
   ) => void;
   showWithGravityAndOffset: (
     message: string,
@@ -33,7 +33,7 @@ export interface Spec extends TurboModule {
     gravity: number,
     xOffset: number,
     yOffset: number,
-    styles: Object,
+    options: Object,
   ) => void;
 }
 

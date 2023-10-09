@@ -1,5 +1,5 @@
 import { Platform, processColor } from 'react-native';
-import type { Spec, StylesIOS } from './NativeSimpleToast';
+import type { Spec, OptionsIOS } from './NativeSimpleToast';
 
 const RCTToast = Platform.select<() => Spec>({
   ios: () => require('./NativeSimpleToast').default,
@@ -33,11 +33,11 @@ export default {
   BOTTOM: constantsSource.BOTTOM,
   CENTER: constantsSource.CENTER,
 
-  show(message: string, durationSeconds: number, styles: StylesIOS = {}) {
+  show(message: string, durationSeconds: number, options: OptionsIOS = {}) {
     RCTToast.show(
       message,
       durationSeconds ?? constantsSource.SHORT,
-      processColors(styles),
+      processColors(options),
     );
   },
 
@@ -45,13 +45,13 @@ export default {
     message: string,
     durationSeconds: number,
     gravity: number,
-    styles: StylesIOS = {},
+    options: OptionsIOS = {},
   ) {
     RCTToast.showWithGravity(
       message,
       durationSeconds ?? constantsSource.SHORT,
       gravity,
-      processColors(styles),
+      processColors(options),
     );
   },
 
@@ -61,7 +61,7 @@ export default {
     gravity: number,
     xOffset: number,
     yOffset: number,
-    styles: StylesIOS = {},
+    options: OptionsIOS = {},
   ) {
     RCTToast.showWithGravityAndOffset(
       message,
@@ -69,18 +69,18 @@ export default {
       gravity,
       xOffset,
       yOffset,
-      processColors(styles),
+      processColors(options),
     );
   },
 };
 
-function processColors(styles: StylesIOS) {
+function processColors(options: OptionsIOS) {
   if (Platform.OS === 'ios') {
     return {
       // the types are not 100% correct
-      ...styles,
-      messageColor: processColor(styles.textColor) as number | undefined,
-      backgroundColor: processColor(styles.backgroundColor) as
+      ...options,
+      messageColor: processColor(options.textColor) as number | undefined,
+      backgroundColor: processColor(options.backgroundColor) as
         | number
         | undefined,
     };

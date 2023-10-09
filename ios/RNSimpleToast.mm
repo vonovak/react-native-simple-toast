@@ -78,31 +78,31 @@ RCT_EXPORT_MODULE()
 }
 #endif
 
-RCT_EXPORT_METHOD(show:(NSString *)message duration:(double)duration styles:(NSDictionary*)styles {
-    [self _show:message duration:duration position:defaultPositionId offset:CGPointZero styles:styles];
+RCT_EXPORT_METHOD(show:(NSString *)message duration:(double)duration options:(NSDictionary*)options {
+    [self _show:message duration:duration position:defaultPositionId offset:CGPointZero options:options];
 });
 
-RCT_EXPORT_METHOD(showWithGravity:(NSString *)message duration:(double)duration gravity:(double)gravity styles:(NSDictionary*)styles {
-    [self _show:message duration:duration position:gravity offset:CGPointZero styles:styles];
+RCT_EXPORT_METHOD(showWithGravity:(NSString *)message duration:(double)duration gravity:(double)gravity options:(NSDictionary*)options {
+    [self _show:message duration:duration position:gravity offset:CGPointZero options:options];
 });
 
-RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)duration gravity:(double)gravity xOffset:(double)xOffset yOffset:(double)yOffset styles:(NSDictionary*)styles {
-    [self _show:message duration:duration position:gravity offset:CGPointMake(xOffset, yOffset) styles:styles];
+RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)duration gravity:(double)gravity xOffset:(double)xOffset yOffset:(double)yOffset options:(NSDictionary*)options {
+    [self _show:message duration:duration position:gravity offset:CGPointMake(xOffset, yOffset) options:options];
 });
 
 - (void)_show:(NSString *)msg
      duration:(NSTimeInterval)duration
      position:(double)position
        offset:(CGPoint)offset
-       styles:(NSDictionary*)styles {
+       options:(NSDictionary*)options {
     CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
-    if (styles[@"backgroundColor"]) {
-        style.backgroundColor = [RCTConvert UIColor:styles[@"backgroundColor"]];
+    if (options[@"backgroundColor"]) {
+        style.backgroundColor = [RCTConvert UIColor:options[@"backgroundColor"]];
     }
-    if (styles[@"messageColor"]) {
-        style.messageColor = [RCTConvert UIColor:styles[@"messageColor"]];
+    if (options[@"messageColor"]) {
+        style.messageColor = [RCTConvert UIColor:options[@"messageColor"]];
     }
-    [CSToastManager setTapToDismissEnabled:styles[@"tapToDismissEnabled"]];
+    [CSToastManager setTapToDismissEnabled:options[@"tapToDismissEnabled"]];
 
 
     NSString *positionString = RNToastPositionMap[@(position)] ?: CSToastPositionBottom;
