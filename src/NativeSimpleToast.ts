@@ -4,6 +4,7 @@ import { TurboModuleRegistry } from 'react-native';
 export type StylesIOS = {
   textColor?: ColorValue;
   backgroundColor?: ColorValue;
+  tapToDismissEnabled?: boolean;
 };
 
 // type NativeStyles = {

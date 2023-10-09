@@ -55,6 +55,14 @@ export default function App() {
             }}
           />
           <Button
+            title={'tap to dismiss toast'}
+            onPress={() => {
+              Toast.show('Tap to dismiss toast.', Toast.LONG, {
+                tapToDismissEnabled: true,
+              });
+            }}
+          />
+          <Button
             onPress={() => {
               setModalVisible(true);
               setTimeout(() => {

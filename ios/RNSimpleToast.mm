@@ -27,7 +27,6 @@ RCT_EXPORT_MODULE()
 - (instancetype)init {
     if (self = [super init]) {
         _kbdHeight = 0;
-        [CSToastManager setTapToDismissEnabled:YES];
         [CSToastManager setQueueEnabled:YES];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardDidShow:)
@@ -103,6 +102,7 @@ RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)
     if (styles[@"messageColor"]) {
         style.messageColor = [RCTConvert UIColor:styles[@"messageColor"]];
     }
+    [CSToastManager setTapToDismissEnabled:styles[@"tapToDismissEnabled"]];
 
 
     NSString *positionString = RNToastPositionMap[@(position)] ?: CSToastPositionBottom;

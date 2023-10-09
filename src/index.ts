@@ -78,6 +78,7 @@ function processColors(styles: StylesIOS) {
   if (Platform.OS === 'ios') {
     return {
       // the types are not 100% correct
+      ...styles,
       messageColor: processColor(styles.textColor) as number | undefined,
       backgroundColor: processColor(styles.backgroundColor) as
         | number
