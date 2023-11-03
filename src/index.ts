@@ -33,7 +33,7 @@ export default {
   BOTTOM: constantsSource.BOTTOM,
   CENTER: constantsSource.CENTER,
 
-  show(message: string, durationSeconds: number, styles: StylesIOS = {}) {
+  show(message: string, durationSeconds: number = constantsSource.SHORT, styles: StylesIOS = {}) {
     RCTToast.show(
       message,
       durationSeconds ?? constantsSource.SHORT,
