@@ -1,16 +1,12 @@
 import type { TurboModule, ColorValue } from 'react-native';
 import { TurboModuleRegistry } from 'react-native';
 
-export type OptionsIOS = {
+// TODO rename to OptionsIOS
+export type StylesIOS = {
   textColor?: ColorValue;
   backgroundColor?: ColorValue;
   tapToDismissEnabled?: boolean;
 };
-
-// type NativeStyles = {
-//   messageColor?: number;
-//   backgroundColor?: number;
-// };
 
 export interface Spec extends TurboModule {
   getConstants: () => {

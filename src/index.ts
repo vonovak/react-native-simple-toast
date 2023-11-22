@@ -1,5 +1,5 @@
 import { Platform, processColor } from 'react-native';
-import type { Spec, OptionsIOS } from './NativeSimpleToast';
+import type { Spec, StylesIOS } from './NativeSimpleToast';
 
 const RCTToast = Platform.select<() => Spec>({
   ios: () => require('./NativeSimpleToast').default,
@@ -33,7 +33,7 @@ export default {
   BOTTOM: constantsSource.BOTTOM,
   CENTER: constantsSource.CENTER,
 
-  show(message: string, durationSeconds: number, options: OptionsIOS = {}) {
+  show(message: string, durationSeconds: number, options: StylesIOS = {}) {
     RCTToast.show(
       message,
       durationSeconds ?? constantsSource.SHORT,
@@ -45,7 +45,7 @@ export default {
     message: string,
     durationSeconds: number,
     gravity: number,
-    options: OptionsIOS = {},
+    options: StylesIOS = {},
   ) {
     RCTToast.showWithGravity(
       message,
@@ -61,7 +61,7 @@ export default {
     gravity: number,
     xOffset: number,
     yOffset: number,
-    options: OptionsIOS = {},
+    options: StylesIOS = {},
   ) {
     RCTToast.showWithGravityAndOffset(
       message,
@@ -74,7 +74,7 @@ export default {
   },
 };
 
-function processColors(options: OptionsIOS) {
+function processColors(options: StylesIOS) {
   if (Platform.OS === 'ios') {
     return {
       // the types are not 100% correct
