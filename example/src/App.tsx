@@ -87,6 +87,18 @@ export default function App() {
             }}
           />
           <Button
+            title={'two toasts on top'}
+            onPress={() => {
+              Toast.show('_____ This is a bottom toast _____', 7, {
+                backgroundColor: 'rgb(255, 0, 255)',
+                textColor: 'black',
+              });
+              Toast.show('Tap to dismiss toast on iOS.', 7, {
+                tapToDismissEnabled: true,
+              });
+            }}
+          />
+          <Button
             title={'toast with offset'}
             onPress={() => {
               Toast.showWithGravityAndOffset(
