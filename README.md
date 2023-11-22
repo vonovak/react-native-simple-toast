@@ -49,7 +49,7 @@ then rebuild your project
 
 ## Usage
 
-the module exposes the following functions, same as `ToastAndroid`, with extra styling parameter for iOS only:
+the module exposes the following functions, same as `ToastAndroid`, with extra configuration parameter for iOS only:
 
 ```ts
 import Toast from 'react-native-simple-toast';
@@ -111,7 +111,7 @@ Toast.show('This is a styled toast on iOS.', Toast.LONG, {
   backgroundColor: 'blue',
 });
 
-Toast.show('This is toast with tapToDismissEnabled.', Toast.LONG, {
+Toast.show('This is a toast that can be dismissed (iOS only).', Toast.LONG, {
   tapToDismissEnabled: true,
 });
 ```
