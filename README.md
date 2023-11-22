@@ -49,14 +49,14 @@ then rebuild your project
 
 ## Usage
 
-the module exposes the following functions, same as `ToastAndroid`, with extra styling parameter for iOS only:
+the module exposes the following functions, same as `ToastAndroid`, with extra configuration parameter for iOS only:
 
 ```ts
 import Toast from 'react-native-simple-toast';
 
-Toast.show(message, duration, styles);
+Toast.show(message, duration, options);
 
-Toast.showWithGravity(message, duration, gravity, styles);
+Toast.showWithGravity(message, duration, gravity, options);
 
 Toast.showWithGravityAndOffset(
   message,
@@ -64,7 +64,7 @@ Toast.showWithGravityAndOffset(
   gravity,
   xOffset,
   yOffset,
-  styles,
+  options,
 );
 ```
 
@@ -82,12 +82,13 @@ Toast.CENTER;
 
 Please note that `yOffset` and `xOffset` are [ignored on Android 11 and above](<https://developer.android.com/reference/android/widget/Toast#setGravity(int,%20int,%20int)>).
 
-For styling on iOS, you can pass an object with the following properties:
+For customizing on iOS, you can pass an object with the following properties:
 
 ```ts
-type StylesIOS = {
+type OptionsIOS = {
   textColor?: ColorValue;
   backgroundColor?: ColorValue;
+  tapToDismissEnabled?: boolean;
 };
 ```
 
@@ -108,6 +109,10 @@ Toast.showWithGravity(
 
 Toast.show('This is a styled toast on iOS.', Toast.LONG, {
   backgroundColor: 'blue',
+});
+
+Toast.show('This is a toast that can be dismissed (iOS only).', Toast.LONG, {
+  tapToDismissEnabled: true,
 });
 ```
 

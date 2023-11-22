@@ -55,6 +55,14 @@ export default function App() {
             }}
           />
           <Button
+            title={'tap to dismiss toast'}
+            onPress={() => {
+              Toast.show('Tap to dismiss toast.', Toast.LONG, {
+                tapToDismissEnabled: true,
+              });
+            }}
+          />
+          <Button
             onPress={() => {
               setModalVisible(true);
               setTimeout(() => {
@@ -75,6 +83,18 @@ export default function App() {
               Toast.show('This is a styled toast on iOS.', Toast.LONG, {
                 backgroundColor: 'rgb(255, 0, 255)',
                 textColor: 'black',
+              });
+            }}
+          />
+          <Button
+            title={'two toasts on top'}
+            onPress={() => {
+              Toast.show('_____ This is a bottom toast _____', 7, {
+                backgroundColor: 'rgb(255, 0, 255)',
+                textColor: 'black',
+              });
+              Toast.show('Tap to dismiss toast on iOS.', 7, {
+                tapToDismissEnabled: true,
               });
             }}
           />

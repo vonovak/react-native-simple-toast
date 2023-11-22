@@ -3,6 +3,7 @@
 #import "UIView+Toast.h"
 #import "RNToastViewController.h"
 #import <React/RCTConvert.h>
+#import "RNToastView.h"
 
 static double defaultPositionId = 2.0;
 
@@ -26,7 +27,6 @@ RCT_EXPORT_MODULE()
 - (instancetype)init {
     if (self = [super init]) {
         _kbdHeight = 0;
-        [CSToastManager setTapToDismissEnabled:NO];
         [CSToastManager setQueueEnabled:YES];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardDidShow:)
@@ -78,29 +78,29 @@ RCT_EXPORT_MODULE()
 }
 #endif
 
-RCT_EXPORT_METHOD(show:(NSString *)message duration:(double)duration styles:(NSDictionary*)styles {
-    [self _show:message duration:duration position:defaultPositionId offset:CGPointZero styles:styles];
+RCT_EXPORT_METHOD(show:(NSString *)message duration:(double)duration options:(NSDictionary*)options {
+    [self _show:message duration:duration position:defaultPositionId offset:CGPointZero options:options];
 });
 
-RCT_EXPORT_METHOD(showWithGravity:(NSString *)message duration:(double)duration gravity:(double)gravity styles:(NSDictionary*)styles {
-    [self _show:message duration:duration position:gravity offset:CGPointZero styles:styles];
+RCT_EXPORT_METHOD(showWithGravity:(NSString *)message duration:(double)duration gravity:(double)gravity options:(NSDictionary*)options {
+    [self _show:message duration:duration position:gravity offset:CGPointZero options:options];
 });
 
-RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)duration gravity:(double)gravity xOffset:(double)xOffset yOffset:(double)yOffset styles:(NSDictionary*)styles {
-    [self _show:message duration:duration position:gravity offset:CGPointMake(xOffset, yOffset) styles:styles];
+RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)duration gravity:(double)gravity xOffset:(double)xOffset yOffset:(double)yOffset options:(NSDictionary*)options {
+    [self _show:message duration:duration position:gravity offset:CGPointMake(xOffset, yOffset) options:options];
 });
 
 - (void)_show:(NSString *)msg
      duration:(NSTimeInterval)duration
      position:(double)position
        offset:(CGPoint)offset
-       styles:(NSDictionary*)styles {
+       options:(NSDictionary*)options {
     CSToastStyle *style = [[CSToastStyle alloc] initWithDefaultStyle];
-    if (styles[@"backgroundColor"]) {
-        style.backgroundColor = [RCTConvert UIColor:styles[@"backgroundColor"]];
+    if (options[@"backgroundColor"]) {
+        style.backgroundColor = [RCTConvert UIColor:options[@"backgroundColor"]];
     }
-    if (styles[@"messageColor"]) {
-        style.messageColor = [RCTConvert UIColor:styles[@"messageColor"]];
+    if (options[@"messageColor"]) {
+        style.messageColor = [RCTConvert UIColor:options[@"messageColor"]];
     }
 
 
@@ -117,6 +117,10 @@ RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)
             [weakView removeFromSuperview];
             [controller hide];
         };
+        // CSToastManager state is shared among toasts, and is used when toast is shown
+        // so modifications to it should happen in the dispatch_get_main_queue block
+        [CSToastManager setTapToDismissEnabled:options[@"tapToDismissEnabled"]];
+
         if (!CGPointEqualToPoint(offset, CGPointZero)) {
             CGPoint centerWithOffset = [self getCenterWithOffset:offset view:view toast:toast position:positionString];
             [view showToast:toast duration:duration position:[NSValue valueWithCGPoint:centerWithOffset] completion:completion];
@@ -163,8 +167,7 @@ RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)
     CGRect bounds = rootView.bounds;
     bounds.size.height -= _kbdHeight;
 
-    UIView *view = [[UIView alloc] initWithFrame:bounds];
-    view.userInteractionEnabled = NO;
+    UIView *view = [[RNToastView alloc] initWithFrame:bounds];
     [rootView addSubview:view];
     return view;
 }
