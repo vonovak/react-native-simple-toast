@@ -1,11 +1,13 @@
 import { Platform, processColor } from 'react-native';
 import type { Spec, StylesIOS } from './NativeSimpleToast';
 
+const unsupportedPlatform = 'RNSimpleToast: unsupported platform';
+
 const RCTToast = Platform.select<() => Spec>({
   ios: () => require('./NativeSimpleToast').default,
   android: () => require('react-native').ToastAndroid,
   default: () => {
-    throw new Error('RNSimpleToast: unsupported platform');
+    throw new Error(unsupportedPlatform);
   },
 })();
 
@@ -21,7 +23,7 @@ const constantsSource = Platform.select<
   ios: () => require('./NativeSimpleToast').default.getConstants(),
   android: () => require('react-native').ToastAndroid,
   default: () => {
-    throw new Error('RNSimpleToast: unsupported platform');
+    throw new Error(unsupportedPlatform);
   },
 })();
 
@@ -33,23 +35,23 @@ export default {
   BOTTOM: constantsSource.BOTTOM,
   CENTER: constantsSource.CENTER,
 
-  show(message: string, durationSeconds: number, options: StylesIOS = {}) {
+  show(message: string, duration: number, options?: StylesIOS) {
     RCTToast.show(
       message,
-      durationSeconds ?? constantsSource.SHORT,
+      duration ?? constantsSource.SHORT,
       processColors(options),
     );
   },
 
   showWithGravity(
     message: string,
-    durationSeconds: number,
+    duration: number,
     gravity: number,
-    options: StylesIOS = {},
+    options?: StylesIOS,
   ) {
     RCTToast.showWithGravity(
       message,
-      durationSeconds ?? constantsSource.SHORT,
+      duration ?? constantsSource.SHORT,
       gravity,
       processColors(options),
     );
@@ -61,11 +63,11 @@ export default {
     gravity: number,
     xOffset: number,
     yOffset: number,
-    options: StylesIOS = {},
+    options?: StylesIOS,
   ) {
     RCTToast.showWithGravityAndOffset(
       message,
-      duration,
+      duration ?? constantsSource.SHORT,
       gravity,
       xOffset,
       yOffset,
@@ -74,17 +76,16 @@ export default {
   },
 };
 
-function processColors(options: StylesIOS) {
-  if (Platform.OS === 'ios') {
-    return {
-      // the types are not 100% correct
-      ...options,
-      messageColor: processColor(options.textColor) as number | undefined,
-      backgroundColor: processColor(options.backgroundColor) as
-        | number
-        | undefined,
-    };
+function processColors(options?: StylesIOS) {
+  if (Platform.OS === 'android' || !options) {
+    return undefined;
   }
-
-  return {};
+  return {
+    // the types are not 100% correct
+    ...options,
+    messageColor: processColor(options.textColor) as number | undefined,
+    backgroundColor: processColor(options.backgroundColor) as
+      | number
+      | undefined,
+  };
 }

@@ -16,12 +16,12 @@ export interface Spec extends TurboModule {
     BOTTOM: number;
     CENTER: number;
   };
-  show: (message: string, duration: number, options: Object) => void;
+  show: (message: string, duration: number, options?: Object) => void;
   showWithGravity: (
     message: string,
     duration: number,
     gravity: number,
-    options: Object,
+    options?: Object,
   ) => void;
   showWithGravityAndOffset: (
     message: string,
@@ -29,7 +29,7 @@ export interface Spec extends TurboModule {
     gravity: number,
     xOffset: number,
     yOffset: number,
-    options: Object,
+    options?: Object,
   ) => void;
 }
 
