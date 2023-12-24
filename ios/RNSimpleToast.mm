@@ -108,7 +108,8 @@ RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)
     dispatch_async(dispatch_get_main_queue(), ^{
         RNToastViewController *controller = [RNToastViewController new];
         [controller show];
-        UIView *view = [[RNToastView alloc] initWithFrame:controller.toastWindow.bounds kbdHeight: self->_kbdHeight];
+        BOOL kbdAvoidEnabled = [CSToastPositionBottom isEqualToString:positionString];
+        UIView *view = [[RNToastView alloc] initWithFrame:controller.toastWindow.bounds kbdHeight:self->_kbdHeight kbdAvoidEnabled:kbdAvoidEnabled];
         [controller.toastWindow addSubview:view];
         UIView __weak *weakView = view;
 

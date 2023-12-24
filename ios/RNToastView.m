@@ -10,18 +10,22 @@
   else return hitView;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame kbdHeight: (CGFloat)height {
+- (instancetype)initWithFrame:(CGRect)frame kbdHeight: (CGFloat)kbdHeight kbdAvoidEnabled: (BOOL)kbdAvoidEnabled {
     originalFrame = frame;
-    frame.size.height -= height;
+    if (kbdAvoidEnabled) {
+        frame.size.height -= kbdHeight;
+    }
     if (self = [super initWithFrame:frame]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillShow:)
-                                                     name:UIKeyboardWillShowNotification
-                                                   object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardWillHide:)
-                                                     name:UIKeyboardWillHideNotification
-                                                   object:nil];
+        if (kbdAvoidEnabled) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(keyboardWillShow:)
+                                                         name:UIKeyboardWillShowNotification
+                                                       object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(keyboardWillHide:)
+                                                         name:UIKeyboardWillHideNotification
+                                                       object:nil];
+        }
     }
     return self;
 }
