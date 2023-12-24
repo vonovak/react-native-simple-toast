@@ -10,6 +10,8 @@ React Native Toast component for both Android and iOS. It just lets iOS users ha
 
 ✅ renders on top of `Modal`s and `Alert`s
 
+✅ avoids keyboard
+
 ✅ customizable styling
 
 ## Screenshots
