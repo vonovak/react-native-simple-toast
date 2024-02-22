@@ -1,9 +1,9 @@
 #import "RNSimpleToast.h"
 
 #import "UIView+Toast.h"
-#import "RNToastViewController.h"
 #import <React/RCTConvert.h>
 #import "RNToastView.h"
+#import "RNToastWindow.h"
 
 static double defaultPositionId = 2.0;
 
@@ -106,18 +106,17 @@ RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)
 
     NSString *positionString = RNToastPositionMap[@(position)] ?: CSToastPositionBottom;
     dispatch_async(dispatch_get_main_queue(), ^{
-        RNToastViewController *controller = [RNToastViewController new];
-        [controller show];
+        UIWindow *window = [RNToastWindow new];
         BOOL kbdAvoidEnabled = [CSToastPositionBottom isEqualToString:positionString];
-        UIView *view = [[RNToastView alloc] initWithFrame:controller.toastWindow.bounds kbdHeight:self->_kbdHeight kbdAvoidEnabled:kbdAvoidEnabled];
-        [controller.toastWindow addSubview:view];
+        UIView *view = [[RNToastView alloc] initWithFrame:window.bounds kbdHeight:self->_kbdHeight kbdAvoidEnabled:kbdAvoidEnabled];
+        [window addSubview:view];
         UIView __weak *weakView = view;
 
         UIView *toast = [view toastViewForMessage:msg title:nil image:nil style:style];
 
         void (^completion)(BOOL) = ^(BOOL didTap) {
             [weakView removeFromSuperview];
-            [controller hide];
+            [window setHidden:YES];
         };
         // CSToastManager state is shared among toasts, and is used when toast is shown
         // so modifications to it should happen in the dispatch_get_main_queue block
