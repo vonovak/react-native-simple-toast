@@ -24,19 +24,6 @@
     }
     if (self) {
         [self setHidden:NO];
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        self.windowLevel = UIWindowLevelAlert + 1;
-    }
-    return self;
-}
-
-- (instancetype)initWithWindowScene:(UIWindowScene *)windowScene {
-    if (self = [super initWithWindowScene:windowScene]) {
         self.windowLevel = UIWindowLevelAlert + 1;
     }
     return self;
