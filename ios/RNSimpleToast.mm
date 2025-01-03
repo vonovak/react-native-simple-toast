@@ -121,7 +121,7 @@ RCT_EXPORT_METHOD(showWithGravityAndOffset:(NSString *)message duration:(double)
         };
         // CSToastManager state is shared among toasts, and is used when toast is shown
         // so modifications to it should happen in the dispatch_get_main_queue block
-        [CSToastManager setTapToDismissEnabled:options[@"tapToDismissEnabled"]];
+        [CSToastManager setTapToDismissEnabled:[options[@"tapToDismissEnabled"] boolValue]];
 
         if (!CGPointEqualToPoint(offset, CGPointZero)) {
             CGPoint centerWithOffset = [self getCenterWithOffset:offset view:view toast:toast position:positionString];
